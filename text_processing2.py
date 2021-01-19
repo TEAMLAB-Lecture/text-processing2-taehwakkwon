@@ -4,6 +4,19 @@
 
 
 def digits_to_words(input_string):
+    num2word_dic = {
+        '0':'zero',
+        '1':'one',
+        '2':'two',
+        '3':'three',
+        '4':'four',
+        '5':'five',
+        '6':'six',
+        '7':'seven',
+        '8':'eight',
+        '9':'nine',
+
+    }
     """
     인풋으로 받는 스트링에서 숫자만 추출하여 영어 단어로 변환하여 단어들이 연결된 스트링을 반환함
     아래의 요건들을 충족시켜야함
@@ -28,8 +41,11 @@ def digits_to_words(input_string):
             >>> tp2.digits_to_words(digits_str2)
             'three one four one five'
     """
-    digit_string = None
-    return digit_string
+    digit_string = ''
+    for letter in input_string:
+        if letter.isdigit():
+            digit_string += num2word_dic[letter] + ' '
+    return digit_string.rstrip()
 
 
 """
@@ -64,5 +80,20 @@ def to_camel_case(underscore_str):
             >>> tp2.to_camel_case(underscore_str3)
             "alreadyCamel"
     """
-    camelcase_str = None
+    if '_' not in underscore_str:
+        return underscore_str
+    camelcase_str = ''
+    flag = False
+    for idx in range(len(underscore_str)):
+        if underscore_str[idx] == '_':
+            flag = True
+        elif camelcase_str == '':
+            camelcase_str += underscore_str[idx].lower()
+            flag = False
+        elif flag:
+            camelcase_str += underscore_str[idx].upper()
+            flag = False
+        else:
+            camelcase_str += underscore_str[idx].lower()
+            flag = False
     return camelcase_str
